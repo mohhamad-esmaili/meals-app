@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/main_drawer.dart';
+
 class FiltersScreen extends StatelessWidget {
   static const routeName = '/filters';
 
@@ -7,8 +9,12 @@ class FiltersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('this is a test! '),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Filters'),
+      ),
+      drawer: BuildDrawer(),
+      body: Text('data'),
     );
   }
 }

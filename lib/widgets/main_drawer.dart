@@ -34,10 +34,10 @@ class BuildDrawer extends StatelessWidget {
             color: Colors.amberAccent,
           ),
           buildListTile(context, 'Meals', Icons.restaurant_menu, () {
-            Navigator.of(context).pushNamed('/');
+            Navigator.of(context).pushReplacementNamed('/');
           }),
           buildListTile(context, 'Settings', Icons.settings, () {
-            Navigator.of(context).pushNamed(FiltersScreen.routeName);
+            Navigator.of(context).pushReplacementNamed(FiltersScreen.routeName);
           }),
         ],
       ),
