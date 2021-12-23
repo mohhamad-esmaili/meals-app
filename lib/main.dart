@@ -24,6 +24,8 @@ class _HomeState extends State<Home> {
     'Vegetarian': false,
   };
   List<Meal> _availableMeal = dummy_meals;
+  List<Meal> _favoriteMeals = [];
+
   void _setFilters(Map<String, bool> filterData) {
     setState(() {
       _filters = filterData;
@@ -44,6 +46,24 @@ class _HomeState extends State<Home> {
         return true;
       }).toList();
     });
+  }
+
+  void _toggleFavorite(String mealId) {
+    final existingIndex =
+        _favoriteMeals.indexWhere((meal) => meal.id == mealId);
+    if (existingIndex >= 0) {
+      setState(() {
+        _favoriteMeals.removeAt(existingIndex);
+      });
+    } else {
+      setState(() {
+        _favoriteMeals.add(dummy_meals.firstWhere((meal) => meal.id == mealId));
+      });
+    }
+  }
+
+  bool _isMealFavorite(String id) {
+    return _favoriteMeals.any((meal) => meal.id == id);
   }
 
   @override
@@ -78,10 +98,11 @@ class _HomeState extends State<Home> {
         ),
       ),
       routes: {
-        '/': (ctx) => TabsScreen(),
+        '/': (ctx) => TabsScreen(_favoriteMeals),
         CategoryMealsScreen.routeName: (ctx) =>
             CategoryMealsScreen(_availableMeal),
-        MealDetail.routeName: (ctx) => const MealDetail(),
+        MealDetail.routeName: (ctx) =>
+            MealDetail(_toggleFavorite, _isMealFavorite),
         FiltersScreen.routeName: (ctx) => FiltersScreen(_filters, _setFilters),
       },
     );
